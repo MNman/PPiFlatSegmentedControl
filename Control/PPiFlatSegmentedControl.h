@@ -8,38 +8,33 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "UIAwesomeButton.h"
+#import "PPiFlatSegmentItem.h"
 
 typedef void(^selectionBlock)(NSUInteger segmentIndex);
 
-@interface PPiFlatSegmentedControl : UIView
-
-/**
- *	PROPERTIES
- * textFont: Font of text inside segments
- * textColor: Color of text inside segments
- * selectedTextColor: Color of text inside segments ( selected state )
- * color: Background color of full segmentControl
- * selectedColor: Background color for segment in selected state
- * borderWith: Width of the border line around segments and control
- * borderColor: Color "" ""
- */
+@interface PPiFlatSegmentedControl : UIControl
 
 @property (nonatomic,strong) UIColor *selectedColor;
 @property (nonatomic,strong) UIColor *color;
-@property (nonatomic,strong) UIColor *textColor;
-@property (nonatomic,strong) UIColor *selectedTextColor;
 @property (nonatomic,strong) UIFont *textFont;
 @property (nonatomic,strong) UIColor *borderColor;
 @property (nonatomic) CGFloat borderWidth;
 @property (nonatomic,strong) NSDictionary *textAttributes;
 @property (nonatomic,strong) NSDictionary *selectedTextAttributes;
+@property (nonatomic)  IconPosition iconPosition;
+@property (nonatomic,readonly) NSUInteger numberOfSegments;
 
-
-- (id)initWithFrame:(CGRect)frame andItems:(NSArray*)items andSelectionBlock:(selectionBlock)block;
--(void)setEnabled:(BOOL)enabled forSegmentAtIndex:(NSUInteger)segment;
--(BOOL)isEnabledForSegmentAtIndex:(NSUInteger)index;
--(void)setTitle:(id)title forSegmentAtIndex:(NSUInteger)index;
--(void)setTitleTextAttributes:(NSDictionary*)attributes;
-
+- (id)initWithFrame:(CGRect)frame
+              items:(NSArray*)items
+       iconPosition:(IconPosition)position
+  andSelectionBlock:(selectionBlock)block
+     iconSeparation:(CGFloat)separation;
+- (void)setItems:(NSArray*)items;
+- (void)setSelected:(BOOL)selected segmentAtIndex:(NSUInteger)segment;
+- (BOOL)isSelectedSegmentAtIndex:(NSUInteger)index;
+- (void)setTitle:(id)title forSegmentAtIndex:(NSUInteger)index;
+- (void)setSelectedTextAttributes:(NSDictionary*)attributes;
+- (void)setSegmentAtIndex:(NSUInteger)index enabled:(BOOL)enabled;
 
 @end
